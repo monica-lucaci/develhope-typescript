@@ -1,0 +1,2 @@
+# develhope-typescript
+esercizi typescript
