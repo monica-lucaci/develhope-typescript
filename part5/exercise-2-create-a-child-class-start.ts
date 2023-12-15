@@ -2,57 +2,70 @@
  * START: Follow the instructions below.
  */
 
-// The objects in the `countries` array use strings as the values of the
-// `currency` properties.
-// Complete this numeric enum so that it can be used instead of strings.
-// Hint: Use the string values in the `currency` properties as the enum members.
+class Currency {
+  protected name: string;
+  private code: string;
+  private symbol: string;
 
-enum Currency {
-  Euro = "Euro",
-  Dollar = "Dollar",
+  constructor(name: string, code: string, symbol: string) {
+    this.name = name;
+    this.code = code;
+    this.symbol = symbol;
+  }
+
+  public describe(): void {
+    let description = `The ${this.name} currency `;
+    description += `has the code ${this.code} `;
+    description += `and uses the symbol ${this.symbol}.`;
+
+    console.log(description);
+  }
 }
 
-// Update the type for the `currency` property in this interface to use
-// the `Currency` enum.
+// Alter this class to extend the `Currency` class.
 
-interface Country {
-  name: string;
-  currency: Currency;
+class DetailedCurrency extends Currency {
+  // Define a private field named `banknotes`.
+  // Set the field type so it can be used to store an array of numbers.
+  private banknotes: number[];
+
+  // Add a `banknotes` parameter with the same type as the `banknotes` field.
+  constructor(name: string, code: string, symbol: string, banknotes: number[]) {
+    // Fix this call to the parent constructor.
+
+    super(name, code, symbol);
+
+    // Store the value of the `banknotes` parameter in the corresponding field.
+    this.banknotes = banknotes;
+  }
+
+  // Change the visibility modifier on this method so it can be called
+  // by code outside of this class.
+
+  public describeBankNotes() {
+    // Change the visibility of the parent class `name` field so
+    // that its value can be read here in this child class method.
+
+    let description = `The ${this.name} currency uses the banknotes `;
+
+    // Replace `null` with the value of the `banknotes` field.
+
+    description += this.banknotes.join(", ");
+
+    console.log(description);
+  }
 }
 
-// Replace the string values for the `currency` properties below with
+const euroCurrency = new DetailedCurrency(
+  "Euro",
+  "EUR",
+  "€",
+  [500, 200, 100, 50, 20, 10, 5]
+);
 
-const countries: Country[] = [
-  {
-    name: "France",
-    currency: Currency.Euro,
-  },
-  {
-    name: "United States of America",
-    currency: Currency.Dollar,
-  },
-  {
-    name: "Italy",
-    currency: Currency.Euro,
-  },
-  {
-    name: "New Zealand",
-    currency: Currency.Dollar,
-  },
-];
+euroCurrency.describe();
 
-// Create a string enum named `LanguageStatus`. Use it to replace the
-// string values for the `status` properties in the objects below.
-
-enum LanguageStatus {
-  Primary = "primary",
-  Secondary = "secondary",
-}
-
-const countryLanguages = [
-  { language: "Spanish", status: LanguageStatus.Primary },
-  { language: "English", status: LanguageStatus.Secondary },
-];
+euroCurrency.describeBankNotes();
 
 // ----
 
